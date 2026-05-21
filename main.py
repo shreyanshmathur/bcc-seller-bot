@@ -690,7 +690,8 @@ async def _run() -> None:
     bot_app = Application.builder().token(TELEGRAM_BOT_TOKEN).build()
     _add_handlers(bot_app)
 
-    uv_config = uvicorn.Config(api, host="0.0.0.0", port=8080, log_level="warning")
+    port = int(os.getenv("PORT", "8080"))
+    uv_config = uvicorn.Config(api, host="0.0.0.0", port=port, log_level="warning")
     uv_server = uvicorn.Server(uv_config)
 
     async with bot_app:
